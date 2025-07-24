@@ -21,17 +21,18 @@ class CustomText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Text(
       text,
       maxLines: max,
-      overflow: TextOverflow.ellipsis,
       style: TextStyle(
-        fontSize: size,
-        fontWeight: weight,
-        color: color,
-        height: height,
         letterSpacing: spacing,
+        fontSize: size,
+        color: color,
+        fontWeight: weight,
+        height: height,
+        overflow: TextOverflow.ellipsis,
+        fontFamily: "TenorSans",
       ),
     );
   }

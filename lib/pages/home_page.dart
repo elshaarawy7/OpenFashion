@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:opne_fationn/core/color.dart';
-import 'package:opne_fationn/model/prodact_model.dart';
+import 'package:opne_fationn/widgets/Custem_grade_view.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
+import 'package:opne_fationn/widgets/custem_text.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -47,31 +48,13 @@ class HomePage extends StatelessWidget {
 
                   SizedBox(height: 20),
 
-                  GridView.builder(
-                    itemCount: ProductModel.prodacts.length,
-                    padding: EdgeInsets.zero,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 0,
-                      crossAxisSpacing: 15,
-                      childAspectRatio: 0.50,
-                    ),
-                    itemBuilder: (context, index) {
-                      final item = ProductModel.prodacts[index];
-                      return GestureDetector(
-                        child: Column(
-                          children: [
-                            Image.asset(item.image),
-                            Text(item.name , style: TextStyle(color: Colors.white),),
-                            Text('${item.price} EGP'),
-                            Text(item.description),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                   CustemGradeView() ,
+
+                  SizedBox(height: 20,) , 
+                 CustomText(text: "You may also like".toUpperCase(),size: 26),
+
+
+                  SizedBox(height: 300,) ,
                 ],
               ),
             ),
