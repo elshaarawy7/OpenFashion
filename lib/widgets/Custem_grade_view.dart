@@ -20,14 +20,14 @@ class CustemGradeView extends StatelessWidget {
                       childAspectRatio: 0.50,
                     ),
                     itemBuilder: (context, index) {
-                      final item = ProductModel.prodacts[index];
+                      final  item = ProductModel.prodacts[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context){
                             return CheakoutPage(
                               image: item.image,
                               name: item.name,
-                              price: item.price,
+                              price: index,
                               desc: item.description,
                             ) ;
                           }));
