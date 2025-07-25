@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:opne_fationn/model/prodact_model.dart';
+import 'package:opne_fationn/pages/cheakout_page.dart';
 import 'package:opne_fationn/widgets/custem_text.dart';
 
 class CustemGradeView extends StatelessWidget {
@@ -21,6 +22,16 @@ class CustemGradeView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final item = ProductModel.prodacts[index];
                       return GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return CheakoutPage(
+                              image: item.image,
+                              name: item.name,
+                              price: item.price,
+                              desc: item.description,
+                            ) ;
+                          }));
+                        },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
