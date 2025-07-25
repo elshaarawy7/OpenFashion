@@ -8,7 +8,7 @@ class LineDivider extends StatelessWidget {
     return Container(
       width: 343,
       height: 1,
-      color: Color(0xFF007AFF), // اللون الأزرق المستخدم في التصميم
+      color: Colors.blueGrey, // اللون الأزرق المستخدم في التصميم
       margin: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
     );
   }

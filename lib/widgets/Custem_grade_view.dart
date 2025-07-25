@@ -27,7 +27,7 @@ class CustemGradeView extends StatelessWidget {
                             return CheakoutPage(
                               image: item.image,
                               name: item.name,
-                              price: index,
+                              price: item.price,
                               desc: item.description,
                             ) ;
                           }));
@@ -38,7 +38,11 @@ class CustemGradeView extends StatelessWidget {
                             Image.asset(item.image),
                             CustomText(text: item.name, size: 20, ),
                             CustomText(text: item.description, color: Colors.grey,),
-                            CustomText(text: item.price,color: Color(0XfFDD8560), size: 20,),
+                            CustomText(
+                                      text: "\$ ${item.price.toString()}",
+                                      color: Colors.red.shade200,
+                                      size: 20,
+                            ),
                           ],
                         ),
                       );
@@ -46,3 +50,4 @@ class CustemGradeView extends StatelessWidget {
                   );
   }
 }
+

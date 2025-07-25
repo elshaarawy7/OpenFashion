@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gap/flutter_gap.dart';
 import 'package:opne_fationn/widgets/card_widget.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
 import 'package:opne_fationn/widgets/header.dart';
+import 'package:opne_fationn/widgets/line_driver.dart';
+import 'package:opne_fationn/widgets/promo.dart';
 
 class CheakoutPage extends StatefulWidget {
   const CheakoutPage({
@@ -45,7 +48,17 @@ class _CheakoutPageState extends State<CheakoutPage> {
                 selectedQty = v ;
               });
             },
-          ),
+          ),  
+
+          //promo(),  
+
+          SizedBox(height:10 ,),
+
+          LineDivider() ,
+
+          Gap(20) , 
+
+          Promo()
         ],
       ),
     );

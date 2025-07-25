@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:opne_fationn/core/color.dart';
 import 'package:opne_fationn/widgets/custem_text.dart';
@@ -42,70 +43,65 @@ class _CartWidgetState extends State<CartWidget> {
 
       children: [
         Image.asset(widget.image, width: 120),
-        SizedBox(height: 20,) ,
+        Gap(20),
 
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              CustomText(
-                text: widget.name.toUpperCase(),
-                spacing: 4,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Gap(10),
+            CustomText(
+              text: widget.name.toUpperCase(),
+              spacing: 4,
+              color: AppColor.primary,
+            ),
+            Gap(10),
+            SizedBox(
+              width: size.width * 0.6,
+              child: CustomText(
+                text: widget.descp.toUpperCase(),
+                spacing: 2,
                 color: AppColor.primary,
+                size: 11,
               ),
-             SizedBox(height: 20,) ,
-              SizedBox(
-                width: size.width * 0.6,
-                child: CustomText(
-                  text: widget.descp.toUpperCase(),
-                  spacing: 2,
-                  color: AppColor.primary,
-                  size: 14,
-                ),
-              ), 
-          
-              SizedBox(height: 10,) ,
-             
-              Row(
-                children: [
-                  qty(() {
-                    setState(() {
-                      if (number > 1) {
-                        number--;
-                        widget.onChanged(number);
-                      }
-                    });
-                  }, "assets/svgs/min.svg"),
-          
-                  SizedBox(width: 10,) ,
-          
-                  CustomText(
-                    text: number.toString(),
-                    spacing: 4,
-                    color: AppColor.primary,
-                    weight: FontWeight.bold,
-                  ),
-          
-                  SizedBox(width: 10,) ,
-          
-                  qty(() {
-                    setState(() {
-                      number++;
+            ),
+            Gap(30),
+            Row(
+              children: [
+                qty(() {
+                  setState(() {
+                    if (number > 1) {
+                      number--;
                       widget.onChanged(number);
-                    });
-                  }, "assets/svgs/plus.svg"),
-                ],
-              ),
-              SizedBox(height: 20,) ,
-              CustomText(
-                text: "\$ ${widget.price}",
-                color: Colors.red.shade200,
-                size: 22,
-              ),
-            ],
-          ),
+                    }
+                  });
+                }, "assets/svgs/min.svg"),
+
+                Gap(12),
+
+                CustomText(
+                  text: number.toString(),
+                  spacing: 4,
+                  color: AppColor.primary,
+                  weight: FontWeight.bold,
+                ),
+
+                Gap(12),
+
+                qty(() {
+                  setState(() {
+                    number++;
+                    widget.onChanged(number);
+                  });
+                }, "assets/svgs/plus.svg"),
+              ],
+            ),
+            Gap(28),
+            CustomText(
+              text: "\$ ${widget.price}",
+              color: Colors.red.shade200,
+              size: 22,
+            ),
+          ],
         ),
       ],
     );
