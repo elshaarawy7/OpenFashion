@@ -78,7 +78,7 @@ class _CheakoutPageState extends State<CheakoutPage> {
               ],
             ),
 
-            Gap(50),
+            Gap(30),
             CheakoutBatton(
               Isvg: true,
               title: "Checkout",
@@ -99,7 +99,7 @@ class _CheakoutPageState extends State<CheakoutPage> {
                 );
               },
             ),
-            Gap(0),
+       
           ],
         ),
       ),
