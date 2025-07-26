@@ -8,6 +8,7 @@ class CustemCnontener extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 20 , vertical: 8),
       child: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.black, 
           borderRadius: BorderRadius.circular(12) ,
