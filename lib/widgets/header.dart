@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gap/flutter_gap.dart';
 import 'package:opne_fationn/core/color.dart';
 import 'package:opne_fationn/widgets/custem_text.dart';
 
@@ -18,10 +19,12 @@ class Header extends StatelessWidget {
             spacing: 4,
             size: 20,
             color: AppColor.primary,
-          ), 
+          ),  
+          
 
-        ), 
-          Image.asset('assets/svgs/line.png', width: 190),
+        ),  
+        Gap(10) ,
+          Image.asset('assets/svgs/line.png', width: 200 , color: Colors.grey,),
       ],
     );
   }

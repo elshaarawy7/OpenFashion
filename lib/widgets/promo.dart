@@ -9,33 +9,30 @@ class Promo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SvgPicture.asset("assets/svgs/promo.svg" , width: 30, color: Colors.black,) , 
-              Gap(20) ,
-              CustomText(text: "Add promo code", color: Colors.black,) , 
-              Gap(20) ,
-            ],
-          ),
-         LineDivider() , 
-
-         Row(
-            children: [
-              SvgPicture.asset("assets/svgs/delivery.svg" , width: 30, color: Colors.black,) , 
-              Gap(20) ,
-              CustomText(text: "Delivery", color: Colors.black,) , 
-              Spacer() ,
-              CustomText(text: "Free" , color: Colors.black,) ,
-              Gap(20) ,
-            ],
-          ),
-              LineDivider() ,
-        ],
-      ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            SvgPicture.asset("assets/svgs/promo.svg" , width: 30, color: Colors.black,) , 
+            Gap(20) ,
+            CustomText(text: "Add promo code", color: Colors.black,) , 
+            Gap(20) ,
+          ],
+        ),
+       LineDivider() , 
+    
+       Row(
+          children: [
+            SvgPicture.asset("assets/svgs/delivery.svg" , width: 30, color: Colors.black,) , 
+            Gap(20) ,
+            CustomText(text: "Delivery", color: Colors.black,) , 
+            Spacer() ,
+            CustomText(text: "Free" , color: Colors.black,) ,
+            Gap(20) ,
+          ],
+        ),
+            LineDivider() ,
+      ],
     );
   }
 }
