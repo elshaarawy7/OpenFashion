@@ -8,40 +8,36 @@ class CustemCnontener extends StatelessWidget {
     required this.text,
     required this.icon,
     this.isFree,
-    this.onTap,
+
   });
   final String text;
   final IconData icon;
   final isFree;
 
-  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
-        child: Container(
-          height: 75,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0XFFF9F9F9),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(text: text, color: Color(0XFF555555)),
-              Spacer(),
-              isFree
-                  ? CustomText(text: "FREE", color: Colors.black)
-                  : SizedBox.shrink(),
-
-              Gap(20),
-              Icon(icon),
-            ],
-          ),
+    return Padding(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 8),
+      child: Container(
+        height: 75,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Color(0XFFF9F9F9),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText(text: text, color: Color(0XFF555555)),
+            Spacer(),
+            isFree
+                ? CustomText(text: "FREE", color: Colors.black)
+                : SizedBox.shrink(),
+    
+            Gap(20),
+            Icon(icon),
+          ],
         ),
       ),
     );

@@ -25,8 +25,43 @@ class PlaceOreder extends StatefulWidget {
 }
 
 class _PlaceOrederState extends State<PlaceOreder> {
+  dynamic _savedAdres;
   late int selectedQty = 1;
   @override
+    void _openAdres(context) async {
+  final adressData = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => AddAddress(),
+    ),
+  );
+
+  if (adressData != null) {
+    setState(() {
+      _savedAdres = adressData;
+    });
+  }  
+
+} 
+
+
+   void _editAddress () async {
+    final newAddress = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (c) => AddAddress(
+        editData: _savedAdres,
+      )),
+    );
+
+    setState(() {
+      _savedAdres = newAddress;
+    });
+
+
+   }
+
+  
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(isBlackk: false),
@@ -38,59 +73,65 @@ class _PlaceOrederState extends State<PlaceOreder> {
             Header(title: "Cheackouot"),
             Gap(20),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      text: "Shipping adress",
-                      color: Colors.black38,
-                      size: 22,
+            _savedAdres != null
+                ? GestureDetector(
+                  onTap: _editAddress ,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text:
+                                  "${_savedAdres['first' ] +  _savedAdres[ 'last']}"
+                                      .toLowerCase(),
+                              color: Colors.black38,
+                              size: 22,
+                            ),
+                            Gap(10),
+                            CustomText(
+                              text: "${_savedAdres['address']}".toUpperCase(),
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            Gap(10),
+                            CustomText(
+                              text: "${_savedAdres['city']}".toUpperCase(),
+                              color: Colors.black,
+                              size: 16,
+                            ),  
+                            Gap(10) ,
+                  
+                             CustomText(
+                              text: "${_savedAdres['Zip']}".toUpperCase(),
+                              color: Colors.black,
+                              size: 16,
+                            ), 
+                  
+                            Gap(10),
+                            CustomText(
+                              text: "${_savedAdres['phone']}",
+                              color: Colors.black,
+                              size: 16,
+                            ),
+                            Gap(10),
+                          ],
+                        ),
+                  
+                        Icon(Icons.arrow_back_ios, size: 20, color: Colors.grey),
+                      ],
                     ),
-                    Gap(10),
-                    CustomText(
-                      text: "Iris Watson",
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Gap(10),
-                    CustomText(
-                      text: "606-3727 Ullamcorper. Street",
-                      color: Colors.black,
-                      size: 16,
-                    ),
-                    Gap(10),
-                    CustomText(
-                      text: "Roseville NH 11523",
-                      color: Colors.black,
-                      size: 16,
-                    ),
-                    Gap(10),
-                    CustomText(
-                      text: "(786) 713-8616",
-                      color: Colors.black,
-                      size: 16,
-                    ),
-                  ],
-                ),
+                ) : SizedBox.shrink() ,
+                 Gap(20), 
 
-                Icon(Icons.arrow_back_ios, size: 20, color: Colors.grey),
-              ],
-            ),
 
-            Gap(20),
-            CustemCnontener(
-              text: "Add shipping adress",
-              isFree: false,
-              icon: Icons.add,
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return AddresPage() ;
-                })) ;
-              },
-            ),
+          _savedAdres == null ?  CustemCnontener(
+            text: "Add shipping adress",
+            isFree: false,
+            icon: Icons.add,
+            
+          ) : SizedBox.shrink() ,
 
             Gap(20),
             CustomText(text: "Shipping Method", max: 4, color: Colors.grey),
@@ -116,15 +157,14 @@ class _PlaceOrederState extends State<PlaceOreder> {
               children: [
                 CustomText(text: "Total", color: AppColor.primary),
                 CustomText(
-             
-                 // text: "\$${widget.price * selectedQty}",
-                 text: "\$${widget.total}",
+                  // text: "\$${widget.price * selectedQty}",
+                  text: "\$${widget.total}",
 
                   color: Colors.red.shade200,
                 ),
               ],
-            ), 
-            Gap(30) ,
+            ),
+            Gap(30),
 
             CheakoutBatton(Isvg: true, title: 'Place order'),
           ],
