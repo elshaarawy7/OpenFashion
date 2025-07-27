@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:opne_fationn/core/color.dart';
 import 'package:opne_fationn/pages/addres_page.dart';
+import 'package:opne_fationn/widgets/addres_display.dart';
 import 'package:opne_fationn/widgets/cheakout_batton.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
 import 'package:opne_fationn/widgets/custem_cnontener.dart';
 import 'package:opne_fationn/widgets/custem_text.dart';
 import 'package:opne_fationn/widgets/header.dart';
+import 'package:opne_fationn/widgets/shaping_method.dart';
 
 class PlaceOreder extends StatefulWidget {
   const PlaceOreder({
@@ -28,146 +29,90 @@ class _PlaceOrederState extends State<PlaceOreder> {
   dynamic _savedAdres;
   late int selectedQty = 1;
   @override
-    void _openAdres(context) async {
-  final adressData = await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => AddAddress(),
-    ),
-  );
+  void _openAdres(context) async {
+    final adressData = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddAddress()),
+    );
 
-  if (adressData != null) {
-    setState(() {
-      _savedAdres = adressData;
-    });
-  }  
+    if (adressData != null) {
+      setState(() {
+        _savedAdres = adressData;
+      });
+    }
+  }
 
-} 
-
-
-   void _editAddress () async {
+  void _editAddress() async {
     final newAddress = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (c) => AddAddress(
-        editData: _savedAdres,
-      )),
+      MaterialPageRoute(builder: (c) => AddAddress(editData: _savedAdres)),
     );
 
     setState(() {
       _savedAdres = newAddress;
     });
-
-
-   }
-
-  
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(isBlackk: false),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Header(title: "Cheackouot"),
-            Gap(20),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Header(title: "Cheackouot"),
+              Gap(20), 
+        
+            _savedAdres != null ? AddressInfo(
+              savedAddress: _savedAdres, 
+              onTap: _editAddress, 
+        
+             ) : SizedBox.shrink() ,
+        
+             
+              Gap(20),
+        
+              _savedAdres == null
+                  ? GestureDetector(
+                    onTap: () {
+                      _openAdres(context) ;
+                    },
+                    child: CustemCnontener(
+                        text: "Add shipping adress",
+                        isFree: false,
+                        icon: Icons.add,
+                      ),
+                  )
+                  : SizedBox.shrink(),
+        
+              Gap(20),
+              ShippingMethod(),
+              Gap(30),  
+        
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(text: "Est. Total", color: Colors.black, size: 20),
+                  CustomText(
+                   // text: "\$ ${widget.price * selectedQty}",
+                   text: "${widget.total * selectedQty}" ,
+                    color: Colors.red.shade200,
+                    size: 20,
+                  ),
+                ],
+              ), 
+        
+              Gap(50) ,  
+        
+        
+        
+              CheakoutBatton(Isvg: true, title: 'Place order'), 
 
-            _savedAdres != null
-                ? GestureDetector(
-                  onTap: _editAddress ,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                              text:
-                                  "${_savedAdres['first' ] +  _savedAdres[ 'last']}"
-                                      .toLowerCase(),
-                              color: Colors.black38,
-                              size: 22,
-                            ),
-                            Gap(10),
-                            CustomText(
-                              text: "${_savedAdres['address']}".toUpperCase(),
-                              color: Colors.black,
-                              size: 20,
-                            ),
-                            Gap(10),
-                            CustomText(
-                              text: "${_savedAdres['city']}".toUpperCase(),
-                              color: Colors.black,
-                              size: 16,
-                            ),  
-                            Gap(10) ,
-                  
-                             CustomText(
-                              text: "${_savedAdres['Zip']}".toUpperCase(),
-                              color: Colors.black,
-                              size: 16,
-                            ), 
-                  
-                            Gap(10),
-                            CustomText(
-                              text: "${_savedAdres['phone']}",
-                              color: Colors.black,
-                              size: 16,
-                            ),
-                            Gap(10),
-                          ],
-                        ),
-                  
-                        Icon(Icons.arrow_back_ios, size: 20, color: Colors.grey),
-                      ],
-                    ),
-                ) : SizedBox.shrink() ,
-                 Gap(20), 
-
-
-          _savedAdres == null ?  CustemCnontener(
-            text: "Add shipping adress",
-            isFree: false,
-            icon: Icons.add,
-            
-          ) : SizedBox.shrink() ,
-
-            Gap(20),
-            CustomText(text: "Shipping Method", max: 4, color: Colors.grey),
-
-            CustemCnontener(
-              text: "Pickup at store",
-              isFree: true,
-              icon: Icons.arrow_back_ios,
-            ),
-
-            Gap(20),
-            CustomText(text: "Payment method", max: 4, color: Colors.grey),
-            CustemCnontener(
-              text: "select payment method",
-              isFree: true,
-              icon: Icons.arrow_back_ios,
-            ),
-
-            Gap(30),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(text: "Total", color: AppColor.primary),
-                CustomText(
-                  // text: "\$${widget.price * selectedQty}",
-                  text: "\$${widget.total}",
-
-                  color: Colors.red.shade200,
-                ),
-              ],
-            ),
-            Gap(30),
-
-            CheakoutBatton(Isvg: true, title: 'Place order'),
-          ],
+              Gap(20) ,
+            ],
+          ),
         ),
       ),
     );
