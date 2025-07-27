@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:opne_fationn/core/color.dart';
+import 'package:opne_fationn/pages/addres_page.dart';
 import 'package:opne_fationn/widgets/cheakout_batton.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
 import 'package:opne_fationn/widgets/custem_cnontener.dart';
@@ -84,6 +85,11 @@ class _PlaceOrederState extends State<PlaceOreder> {
               text: "Add shipping adress",
               isFree: false,
               icon: Icons.add,
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return AddresPage() ;
+                })) ;
+              },
             ),
 
             Gap(20),
