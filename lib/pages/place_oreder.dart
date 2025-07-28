@@ -1,139 +1,227 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:opne_fationn/core/color.dart';
 import 'package:opne_fationn/pages/addres_page.dart';
 import 'package:opne_fationn/pages/page_card.dart';
 import 'package:opne_fationn/widgets/addres_display.dart';
+import 'package:opne_fationn/widgets/card_widget.dart';
 import 'package:opne_fationn/widgets/cheakout_batton.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
 import 'package:opne_fationn/widgets/custem_cnontener.dart';
 import 'package:opne_fationn/widgets/custem_text.dart';
+import 'package:opne_fationn/widgets/dailog.dart';
 import 'package:opne_fationn/widgets/header.dart';
 import 'package:opne_fationn/widgets/shaping_method.dart';
 
-class PlaceOreder extends StatefulWidget {
-  const PlaceOreder({
+class PlaceOrder extends StatefulWidget {
+  const PlaceOrder({
     super.key,
     required this.image,
     required this.name,
-    required this.price,
+    required this.desp,
     required this.qty,
     required this.total,
+    required this.price,
   });
-  final String image, name;
-  final int price, qty, total;
+  final String image;
+  final String name;
+  final int price;
+  final String desp;
+  final int qty;
+  final int total;
 
   @override
-  State<PlaceOreder> createState() => _PlaceOrederState();
+  State<PlaceOrder> createState() => _PlaceOrderState();
 }
 
-class _PlaceOrederState extends State<PlaceOreder> {
-  dynamic _savedAdres;
-  dynamic _savedCard ;
-  late int selectedQty = 1;
+class _PlaceOrderState extends State<PlaceOrder> {
+  dynamic _savedAddress;
+  dynamic _savedCard;
+  late int selectedQty;
+
   @override
-  void _openAdres(context) async {
-    final adressData = await Navigator.push(
+  void initState() {
+    selectedQty = widget.qty;
+    super.initState();
+  }
+
+  /// address
+  void _openAddress(context) async {
+    final addressData = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddAddress()),
+      MaterialPageRoute(builder: (c) => AddAddress(
+      )),
     );
 
-    if (adressData != null) {
+    if (addressData != null) {
       setState(() {
-        _savedAdres = adressData;
+        _savedAddress = addressData;
       });
     }
   }
-
-  void _editAddress() async {
+  void _editAddress () async {
     final newAddress = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (c) => AddAddress(editData: _savedAdres)),
+      MaterialPageRoute(builder: (c) => AddAddress(
+        editData: _savedAddress,
+      )),
     );
 
     setState(() {
-      _savedAdres = newAddress;
+      _savedAddress = newAddress;
     });
-  } 
 
-  void _openCard() async{
-    final CardDate = Navigator.push(context, MaterialPageRoute(builder: (context){
-      return cardPage() ;
-    })); 
 
-    if(CardDate != null){
+  }
+
+  /// card
+  void _openCard () async {
+    final cardData = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (c) => cardPage()),
+    );
+
+    if (cardData != null) {
       setState(() {
-        _savedCard = CardDate ;
+        _savedCard = cardData;
       });
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(isBlackk: false),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+    
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Header(title: "Cheackouot"),
-              Gap(20), 
-        
-            _savedAdres != null ? AddressInfo(
-              savedAddress: _savedAdres, 
-              onTap: _editAddress, 
-        
-             ) : SizedBox.shrink() ,
-        
-             
-              Gap(20),
-        
-              _savedAdres == null
-                  ? GestureDetector(
-                    onTap: () {
-                      _openAdres(context) ;
-                    },
-                    child: CustemCnontener(
-                        text: "Add shipping adress",
-                        isFree: false,
-                        icon: Icons.add,
-                      ),
-                  )
-                  : SizedBox.shrink(),
-        
-              Gap(20),
-              ShippingMethod(),
-              Gap(30),   
+              Header(title: "Checkout"),
+              _savedCard != null && _savedAddress != null ? SizedBox.shrink() : CustomText(
+                text: "Shipping address".toUpperCase(),
+                color: Colors.black38,
+                max: 2,
+                size: 16,
+              ),
+              Gap(13),
+              
+              /// address Info
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    _savedAddress != null ? AddressInfo(
+                      savedAddress: _savedAddress,
+                      onTap: _editAddress,
+                    ) : SizedBox.shrink(),
+                    Gap(20),
+                    _savedAddress == null ? GestureDetector(
+                          onTap: () {
+                            _openAddress(context);
+                          },
+                          child: CustemCnontener(
 
-          GestureDetector(
-            onTap: _openCard ,
-            child: CustemCnontener(
-                     text:  "select payment method",
-                    icon:   Icons.keyboard_arrow_down_sharp,
-                    isFree:   false,
-                    ),
-          ),
-        
-               Row(
+                          text:   "Add shipping address",
+                          icon:   Icons.add,
+                           isFree:  false,
+                          ),
+                        ) : SizedBox.shrink(),
+                  ],
+                ),
+              ),
+              Gap(10),
+              
+              /// Shipping Method
+              _savedCard != null && _savedAddress != null ? SizedBox.shrink() : ShippingMethod(),
+              
+              /// payment Method
+              _savedCard != null && _savedAddress != null ? SizedBox.shrink() : CustomText(
+                text: "Payment Method".toUpperCase(),
+                color: Colors.black38,
+                size: 16,
+              ),
+
+              Gap(20),
+              _savedCard != null ? Column(
+                children: [
+                  Divider(color: Colors.grey.shade300),
+                  Gap(20),
+                  Row(
+                    children: [
+                      SvgPicture.asset("assets/svgs/Mastercard.svg",width: 40),
+                      Gap(10),
+                      CustomText(text: "Master Card ending",color: Colors.black),
+                      Gap(10),
+                      CustomText(
+                        text: "••••${_savedCard['number'].toString().substring(_savedCard['number'].length - 2)}", 
+                        color: Colors.black,
+                        size: 7,
+                      ),
+                      Spacer(),
+                      SvgPicture.asset("assets/svgs/arrow.svg"),
+                    ],
+                  ),
+                  Gap(20),
+                  Divider(color: Colors.grey.shade300),
+                ],
+              ) : GestureDetector(
+                onTap: _openCard,
+                child: CustemCnontener(
+                text:   "Select Payment Method",
+                icon:   Icons.keyboard_arrow_down_sharp,
+                 isFree:  false,
+                ),
+              ),
+              
+              Gap(20),
+              
+              _savedCard != null && _savedAddress != null ? CartWidget(
+                  image: widget.image,
+                  name:  widget.name,
+                  descp:  widget.desp,
+                  price:  widget.price,
+                  qty: widget.qty,
+                  onChanged: (qty) => setState(() => selectedQty = qty),
+              ) : SizedBox.shrink(),   
+
+              Gap(80),
+
+              /// Ending
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomText(text: "Est. Total", color: Colors.black, size: 20),
+                  CustomText(text: "Total", color: AppColor.primary),
                   CustomText(
-                   // text: "\$ ${widget.price * selectedQty}",
-                   text: "${widget.total * selectedQty}" ,
+                    text: "\$ ${widget.price * selectedQty}",
                     color: Colors.red.shade200,
-                    size: 20,
                   ),
                 ],
-              ), 
-        
-              Gap(50) ,  
-        
-        
-        
-              CheakoutBatton(Isvg: true, title: 'Place order'), 
-
-              Gap(20) ,
+              ),
+              Gap(20),
+             CheakoutBatton(
+              
+              Isvg: true,
+               title: "Place order",
+               onTap: () {
+            
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return Dialog(
+                        child: CustomDailog(),
+                      );
+                    }
+                );
+                
+              }),
+              Gap(70),
             ],
           ),
         ),

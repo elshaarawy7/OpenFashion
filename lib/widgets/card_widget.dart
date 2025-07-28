@@ -53,15 +53,20 @@ class _CartWidgetState extends State<CartWidget> {
               text: widget.name.toUpperCase(),
               spacing: 4,
               color: AppColor.primary,
+              max: 1 , 
+              //overflow: TextOverflow.ellipsis,
             ),
             Gap(10),
             SizedBox(
-              width: size.width * 0.6,
+            
+              width: size.width * 0.5,
               child: CustomText(
                 text: widget.descp.toUpperCase(),
                 spacing: 2,
                 color: AppColor.primary,
-                size: 11,
+                size: 10,
+                
+                
               ),
             ),
             Gap(30),

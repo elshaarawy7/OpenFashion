@@ -87,7 +87,8 @@ class _CheakoutPageState extends State<CheakoutPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return PlaceOreder(
+                      return PlaceOrder(
+                        desp: widget.desc,
                         image: widget.image,
                         name: widget.name,
                         price: widget.price,

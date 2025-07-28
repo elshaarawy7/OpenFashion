@@ -26,11 +26,7 @@ class ShippingMethod extends StatelessWidget {
         isFree:   true,
         ), 
         Gap(20) , 
-         CustomText(
-          text: "Payment method".toUpperCase(),
-          color: Colors.black38,
-          size: 16,
-        ), 
+          
         Gap(20) , 
         
       ],

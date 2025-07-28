@@ -23,7 +23,8 @@ class CustomText extends StatelessWidget {
   @override
    Widget build(BuildContext context) {
     return Text(
-      text,
+      text, 
+      
       maxLines: max,
       style: TextStyle(
         letterSpacing: spacing,
