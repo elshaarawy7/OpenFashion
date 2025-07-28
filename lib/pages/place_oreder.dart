@@ -28,6 +28,7 @@ class PlaceOreder extends StatefulWidget {
 
 class _PlaceOrederState extends State<PlaceOreder> {
   dynamic _savedAdres;
+  dynamic _savedCard ;
   late int selectedQty = 1;
   @override
   void _openAdres(context) async {
@@ -52,6 +53,18 @@ class _PlaceOrederState extends State<PlaceOreder> {
     setState(() {
       _savedAdres = newAddress;
     });
+  } 
+
+  void _openCard() async{
+    final CardDate = Navigator.push(context, MaterialPageRoute(builder: (context){
+      return cardPage() ;
+    })); 
+
+    if(CardDate != null){
+      setState(() {
+        _savedCard = CardDate ;
+      });
+    }
   }
 
   Widget build(BuildContext context) {
@@ -93,11 +106,7 @@ class _PlaceOrederState extends State<PlaceOreder> {
               Gap(30),   
 
           GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context){
-                return cardPage() ;
-              }));
-            },
+            onTap: _openCard ,
             child: CustemCnontener(
                      text:  "select payment method",
                     icon:   Icons.keyboard_arrow_down_sharp,
