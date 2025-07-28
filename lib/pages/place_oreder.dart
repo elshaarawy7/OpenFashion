@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:opne_fationn/pages/addres_page.dart';
+import 'package:opne_fationn/pages/page_card.dart';
 import 'package:opne_fationn/widgets/addres_display.dart';
 import 'package:opne_fationn/widgets/cheakout_batton.dart';
 import 'package:opne_fationn/widgets/custem_appar.dart';
@@ -89,7 +90,20 @@ class _PlaceOrederState extends State<PlaceOreder> {
         
               Gap(20),
               ShippingMethod(),
-              Gap(30),  
+              Gap(30),   
+
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return cardPage() ;
+              }));
+            },
+            child: CustemCnontener(
+                     text:  "select payment method",
+                    icon:   Icons.keyboard_arrow_down_sharp,
+                    isFree:   false,
+                    ),
+          ),
         
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

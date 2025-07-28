@@ -32,11 +32,7 @@ class ShippingMethod extends StatelessWidget {
           size: 16,
         ), 
         Gap(20) , 
-        CustemCnontener(
-         text:  "select payment method",
-        icon:   Icons.keyboard_arrow_down_sharp,
-        isFree:   false,
-        ),
+        
       ],
     );
   }
