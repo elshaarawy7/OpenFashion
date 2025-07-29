@@ -81,7 +81,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
   void _openCard () async {
     final cardData = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (c) => cardPage()),
+      MaterialPageRoute(builder: (c) => AddCard()),
     );
 
     if (cardData != null) {
